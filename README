@@ -1,0 +1,5 @@
+crux is a Go HTTP handler for monitoring a process.
+
+Early prototyping. Try it by running
+	go run main.go
+and visiting http://localhost:8080/debug/crux.
