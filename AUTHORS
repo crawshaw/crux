@@ -1,0 +1,9 @@
+# This file is like Go's AUTHORS file: it lists Copyright holders.
+# It is a subset of the Go authors.
+#
+# To contribute to this project, because it will eventually be folded
+# back in to Go itself, you need to submit a CLA:
+#
+#    http://golang.org/doc/contribute.html#copyright
+
+Google, Inc.
