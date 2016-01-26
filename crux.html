@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--
+Copyright 2016 The Go Authors. All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+-->
+<title>crux</title>
+<style>
+html { overflow: hidden; }
+body {
+	font-family: sans-serif;
+	font-size: 12px;
+	margin:0;
+}
+
+#cols {
+	display: flex;
+	flex-direction: row;
+	height: 100vh;
+}
+
+#nav {
+	width: 200px;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	resize: horizontal; /* TODO doesn't work */
+	border-right: 1px solid gray;
+	background-color: #eee;
+}
+#navheader {
+	border-bottom: 1px solid gray;
+	padding: 5px;
+}
+
+.navtabpanel {
+	flex-grow: 1;
+	overflow-y: scroll;
+	padding: 5px;
+	background-color: #f3f3f3;
+	border-bottom: 1px solid gray;
+}
+
+#navstats {
+}
+#navgoroutines {
+	display: none;
+}
+#navfooter {
+	width: 100px;
+	padding: 5px;
+}
+
+#nav ul {
+	padding: 0;
+}
+#nav ul ul {
+	padding-left: 1em;
+}
+
+#nav ul li {
+	list-style: square inside;
+}
+#nav ul li ul li {
+	list-style: none;
+}
+a {
+	text-decoration: underline;
+	color: blue;
+	cursor: pointer;
+}
+.navtabcurrent {
+	text-decoration: none;
+	color: black;
+	cursor: default;
+}
+
+#main {
+	overflow: scroll;
+	padding: 5px;
+	flex-grow: 1;
+}
+
+th { text-align: left; }
+
+#env {
+	width: 50vw;
+	table-layout: fixed;
+}
+#env th { font-weight: normal; }
+#env td { word-wrap: break-word; }
+</style>
+<script src="crux.js"></script>
+</head>
+<body>
+
+<div id="cols">
+
+<div id="nav">
+
+<div id="navheader">
+<a class="navtab">stats</a> |
+<a class="navtab">goroutines</a>
+</div>
+
+<div id="navstats" class="navtabpanel">
+<a id="showstats">stats</a><br>
+<b>logs</b>
+<ul id="logslist">
+</ul>
+</div>
+
+<div id="navgoroutines" class="navtabpanel">
+<ul>
+<li>1: crux.Load
+<ul>
+	<li>main.main</li>
+</ul>
+</li>
+<li>57434: main.func1
+<ul>
+	<li>main.main (created by)</li>
+</ul>
+</li>
+</ul>
+</div>
+
+<div id="navfooter">
+crux
+</div>
+</div>
+
+<div id="main">
+</div>
+</div>
+</body>
+</html>
