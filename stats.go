@@ -7,11 +7,12 @@ package crux
 import (
 	"bytes"
 	"fmt"
+	"html/template"
 	"net/http"
 	"os"
 	"runtime"
 	"strings"
-	"text/template"
+	"sync"
 	"time"
 )
 
@@ -19,21 +20,38 @@ func stats(w http.ResponseWriter, r *http.Request) {
 	// The stats handler is not designed to be visited directly. It is
 	// an HTML fragment inserted into the main page.
 	buf := new(bytes.Buffer)
-	if err := statsTmpl.Execute(buf, getStatsData()); err != nil {
-		http.Error(w, fmt.Sprintf("cannot generate stats: %v", err), 500)
+
+	dataMu.Lock()
+	updateData()
+	err := statsTmpl.Execute(buf, data)
+	dataMu.Unlock()
+
+	if err != nil {
+		err := fmt.Errorf("cannot generate stats: %v", err)
+		fmt.Fprintf(os.Stderr, "crux: %v", err)
+		http.Error(w, err.Error(), 500)
 		return
 	}
 	buf.WriteTo(w)
 }
 
-func getStatsData() statsData {
-	data := statsData{
+var (
+	dataMu sync.Mutex
+	data   statsData
+)
+
+func updateData() {
+	if data.MemChart == nil {
+		go updateMemChartLoop()
+	}
+	data = statsData{
 		CommandLine:  strings.Join(os.Args, " "),
 		Uptime:       time.Now().Sub(start).String(),
 		GoVersion:    runtime.Version(),
 		NumCPU:       runtime.NumCPU(),
 		NumGoroutine: runtime.NumGoroutine(),
 		Environ:      make(map[string]string),
+		MemChart:     data.MemChart,
 	}
 	for _, v := range os.Environ() {
 		i := strings.Index(v, "=")
@@ -42,7 +60,6 @@ func getStatsData() statsData {
 		}
 		data.Environ[v[:i]] = v[i+1:]
 	}
-	return data
 }
 
 type statsData struct {
@@ -52,9 +69,10 @@ type statsData struct {
 	NumCPU       int
 	NumGoroutine int
 	Environ      map[string]string
+	MemChart     *memChart
 }
 
-var statsTmpl = template.Must(template.New("stats").Parse(`
+var statsTmpl = template.Must(memchartTmpl.New("stats").Parse(`
 <table>
 <tr><th>Command Line</th><td>{{.CommandLine}}</td></tr>
 <tr><th>Uptime</th><td>{{.Uptime}}</td></tr>
@@ -63,6 +81,7 @@ var statsTmpl = template.Must(template.New("stats").Parse(`
 <tr><th>CPUs</th><td>{{.NumCPU}}</td></tr>
 <tr><th>Goroutines</th><td>{{.NumGoroutine}}</td></tr>
 </table>
+{{if .MemChart}}{{template "memchart" .MemChart}}{{end}}
 
 <h3>Environment Variables</h3>
 <table id="env">

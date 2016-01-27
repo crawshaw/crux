@@ -94,6 +94,25 @@ th { text-align: left; }
 }
 #env th { font-weight: normal; }
 #env td { word-wrap: break-word; }
+
+#memchart {
+	padding: 5px;
+}
+#memchartsvg {
+	width: 480px;
+	height: 300px;
+}
+#memchartsvg .labels.x-labels { text-anchor: middle; }
+#memchartsvg .labels.y-labels { text-anchor: end; }
+#memchartsvg .grid {
+	stroke: #bbb;
+	stroke-dasharray: 0;
+	stroke-width: 1;
+}
+#memchartsvg .gcpause {
+	stroke: lightgray;
+	stroke-width: 1;
+}
 </style>
 <script src="crux.js"></script>
 </head>

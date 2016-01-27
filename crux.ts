@@ -123,7 +123,7 @@ function loadStats() {
 	xhr.send();
 
 	window.clearInterval(curRefreshID);
-	//curRefreshID = window.setInterval(loadStats, 5000);
+	curRefreshID = window.setInterval(loadStats, 2000);
 }
 
 function xhrError(name: string, ev: Event) {

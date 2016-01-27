@@ -32,9 +32,11 @@ func main() {
 	}
 
 	go func() {
+		i := 0
 		for {
 			time.Sleep(1 * time.Second)
-			fmt.Printf("sleep, print\n")
+			fmt.Printf("sleep, print %d\n", i)
+			i++
 		}
 	}()
 

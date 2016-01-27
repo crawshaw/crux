@@ -72,26 +72,26 @@ var dataFiles = map[string]string{
 		`N1bWVudC5nZXRFbGVtZW50QnlJZCgibWFpbnN0YXRzIikuaW5uZXJIVE1MID0geGhyLnJl` +
 		`c3BvbnNlVGV4dDsKICAgIH07CiAgICB4aHIub25lcnJvciA9IGZ1bmN0aW9uIChldikgey` +
 		`B4aHJFcnJvcigic3RhdHMiLCBldik7IH07CiAgICB4aHIuc2VuZCgpOwogICAgd2luZG93` +
-		`LmNsZWFySW50ZXJ2YWwoY3VyUmVmcmVzaElEKTsKICAgIC8vY3VyUmVmcmVzaElEID0gd2` +
-		`luZG93LnNldEludGVydmFsKGxvYWRTdGF0cywgNTAwMCk7Cn0KZnVuY3Rpb24geGhyRXJy` +
-		`b3IobmFtZSwgZXYpIHsKICAgIC8vIFRPRE86IHZpc2libGUgdXNlciBmZWVkYmFjawogIC` +
-		`AgY29uc29sZS5sb2coImxvYWRpbmcgIiArIG5hbWUgKyAiIGZhaWxlZDogIiwgZXYpOwp9` +
-		`CmZ1bmN0aW9uIGxvYWRMb2dOYW1lcygpIHsKICAgIHZhciB4aHIgPSBuZXcgWE1MSHR0cF` +
-		`JlcXVlc3QoKTsKICAgIHhoci5vcGVuKCJHRVQiLCAiL2RlYnVnL2NydXgvbG9ncy9saXN0` +
-		`Iik7CiAgICB4aHIub25sb2FkID0gZnVuY3Rpb24gKGV2KSB7CiAgICAgICAgaWYgKHhoci` +
-		`5zdGF0dXMgPCAyMDAgfHwgeGhyLnN0YXR1cyA+PSAzMDApIHsKICAgICAgICAgICAgY29u` +
-		`c29sZS5sb2coImJhZCBkYXRhOiIsIHhocik7CiAgICAgICAgICAgIHJldHVybjsKICAgIC` +
-		`AgICB9CiAgICAgICAgdmFyIHJlcyA9IEpTT04ucGFyc2UoeGhyLnJlc3BvbnNlVGV4dCk7` +
-		`CiAgICAgICAgaGFuZGxlTG9nTmFtZXMocmVzLkZpbGVzKTsKICAgIH07CiAgICB4aHIub2` +
-		`5lcnJvciA9IGZ1bmN0aW9uIChldikgeyB4aHJFcnJvcigibG9ncyBsaXN0IiwgZXYpOyB9` +
-		`OwogICAgeGhyLnNlbmQoKTsKfQp3aW5kb3cub25sb2FkID0gZnVuY3Rpb24gKCkgewogIC` +
-		`AgZm9yRWFjaFRhYihmdW5jdGlvbiAobmFtZSwgbGluaykgewogICAgICAgIGxpbmsuYWRk` +
-		`RXZlbnRMaXN0ZW5lcignY2xpY2snLCBmdW5jdGlvbiAoZSkgewogICAgICAgICAgICBuYX` +
-		`ZnbyhuYW1lKTsKICAgICAgICB9KTsKICAgIH0pOwogICAgdmFyIHNob3dzdGF0cyA9IGRv` +
-		`Y3VtZW50LmdldEVsZW1lbnRCeUlkKCJzaG93c3RhdHMiKTsKICAgIHNob3dzdGF0cy5hZG` +
-		`RFdmVudExpc3RlbmVyKCJjbGljayIsIGZ1bmN0aW9uIChlKSB7CiAgICAgICAgbG9hZFN0` +
-		`YXRzKCk7CiAgICB9KTsKICAgIG5hdmdvKCJzdGF0cyIpOwogICAgbG9hZFN0YXRzKCk7Cn` +
-		`07Cg==` +
+		`LmNsZWFySW50ZXJ2YWwoY3VyUmVmcmVzaElEKTsKICAgIGN1clJlZnJlc2hJRCA9IHdpbm` +
+		`Rvdy5zZXRJbnRlcnZhbChsb2FkU3RhdHMsIDIwMDApOwp9CmZ1bmN0aW9uIHhockVycm9y` +
+		`KG5hbWUsIGV2KSB7CiAgICAvLyBUT0RPOiB2aXNpYmxlIHVzZXIgZmVlZGJhY2sKICAgIG` +
+		`NvbnNvbGUubG9nKCJsb2FkaW5nICIgKyBuYW1lICsgIiBmYWlsZWQ6ICIsIGV2KTsKfQpm` +
+		`dW5jdGlvbiBsb2FkTG9nTmFtZXMoKSB7CiAgICB2YXIgeGhyID0gbmV3IFhNTEh0dHBSZX` +
+		`F1ZXN0KCk7CiAgICB4aHIub3BlbigiR0VUIiwgIi9kZWJ1Zy9jcnV4L2xvZ3MvbGlzdCIp` +
+		`OwogICAgeGhyLm9ubG9hZCA9IGZ1bmN0aW9uIChldikgewogICAgICAgIGlmICh4aHIuc3` +
+		`RhdHVzIDwgMjAwIHx8IHhoci5zdGF0dXMgPj0gMzAwKSB7CiAgICAgICAgICAgIGNvbnNv` +
+		`bGUubG9nKCJiYWQgZGF0YToiLCB4aHIpOwogICAgICAgICAgICByZXR1cm47CiAgICAgIC` +
+		`AgfQogICAgICAgIHZhciByZXMgPSBKU09OLnBhcnNlKHhoci5yZXNwb25zZVRleHQpOwog` +
+		`ICAgICAgIGhhbmRsZUxvZ05hbWVzKHJlcy5GaWxlcyk7CiAgICB9OwogICAgeGhyLm9uZX` +
+		`Jyb3IgPSBmdW5jdGlvbiAoZXYpIHsgeGhyRXJyb3IoImxvZ3MgbGlzdCIsIGV2KTsgfTsK` +
+		`ICAgIHhoci5zZW5kKCk7Cn0Kd2luZG93Lm9ubG9hZCA9IGZ1bmN0aW9uICgpIHsKICAgIG` +
+		`ZvckVhY2hUYWIoZnVuY3Rpb24gKG5hbWUsIGxpbmspIHsKICAgICAgICBsaW5rLmFkZEV2` +
+		`ZW50TGlzdGVuZXIoJ2NsaWNrJywgZnVuY3Rpb24gKGUpIHsKICAgICAgICAgICAgbmF2Z2` +
+		`8obmFtZSk7CiAgICAgICAgfSk7CiAgICB9KTsKICAgIHZhciBzaG93c3RhdHMgPSBkb2N1` +
+		`bWVudC5nZXRFbGVtZW50QnlJZCgic2hvd3N0YXRzIik7CiAgICBzaG93c3RhdHMuYWRkRX` +
+		`ZlbnRMaXN0ZW5lcigiY2xpY2siLCBmdW5jdGlvbiAoZSkgewogICAgICAgIGxvYWRTdGF0` +
+		`cygpOwogICAgfSk7CiAgICBuYXZnbygic3RhdHMiKTsKICAgIGxvYWRTdGF0cygpOwp9Ow` +
+		`o=` +
 		``,
 	"crux.html": `` +
 		`PCFET0NUWVBFIGh0bWw+CjxodG1sPgo8aGVhZD4KPCEtLQpDb3B5cmlnaHQgMjAxNiBUaG` +
@@ -120,19 +120,25 @@ var dataFiles = map[string]string{
 		`0KI21haW5zdGF0cyB7fQojbWFpbmxvZ3MgeyBkaXNwbGF5OiBub25lOyB9Cgp0aCB7IHRl` +
 		`eHQtYWxpZ246IGxlZnQ7IH0KCiNlbnYgewoJd2lkdGg6IDUwdnc7Cgl0YWJsZS1sYXlvdX` +
 		`Q6IGZpeGVkOwp9CiNlbnYgdGggeyBmb250LXdlaWdodDogbm9ybWFsOyB9CiNlbnYgdGQg` +
-		`eyB3b3JkLXdyYXA6IGJyZWFrLXdvcmQ7IH0KPC9zdHlsZT4KPHNjcmlwdCBzcmM9ImNydX` +
-		`guanMiPjwvc2NyaXB0Pgo8L2hlYWQ+Cjxib2R5PgoKPGRpdiBpZD0iY29scyI+Cgo8ZGl2` +
-		`IGlkPSJuYXYiPgoKPGRpdiBpZD0ibmF2aGVhZGVyIj4KPGEgY2xhc3M9Im5hdnRhYiI+c3` +
-		`RhdHM8L2E+IHwKPGEgY2xhc3M9Im5hdnRhYiI+Z29yb3V0aW5lczwvYT4KPC9kaXY+Cgo8` +
-		`ZGl2IGlkPSJuYXZzdGF0cyIgY2xhc3M9Im5hdnRhYnBhbmVsIj4KPGEgaWQ9InNob3dzdG` +
-		`F0cyI+c3RhdHM8L2E+PGJyPgo8Yj5sb2dzPC9iPgo8dWwgaWQ9ImxvZ3NsaXN0Ij4KPC91` +
-		`bD4KPC9kaXY+Cgo8ZGl2IGlkPSJuYXZnb3JvdXRpbmVzIiBjbGFzcz0ibmF2dGFicGFuZW` +
-		`wiPgo8dWw+CjxsaT4xOiBjcnV4LkxvYWQKPHVsPgoJPGxpPm1haW4ubWFpbjwvbGk+Cjwv` +
-		`dWw+CjwvbGk+CjxsaT41NzQzNDogbWFpbi5mdW5jMQo8dWw+Cgk8bGk+bWFpbi5tYWluIC` +
-		`hjcmVhdGVkIGJ5KTwvbGk+CjwvdWw+CjwvbGk+CjwvdWw+CjwvZGl2PgoKPGRpdiBpZD0i` +
-		`bmF2Zm9vdGVyIj4KY3J1eAo8L2Rpdj4KPC9kaXY+Cgo8ZGl2IGlkPSJtYWluIj4KCTxkaX` +
-		`YgaWQ9Im1haW5zdGF0cyI+PCEtLSBUT0RPIHBvcHVsYXRlIG9uIGluaXRpYWwgbG9hZCAt` +
-		`LT48L2Rpdj4KCTxkaXYgaWQ9Im1haW5sb2dzIj48L2Rpdj4KPC9kaXY+Cgo8L2Rpdj4KPC` +
-		`9ib2R5Pgo8L2h0bWw+Cg==` +
+		`eyB3b3JkLXdyYXA6IGJyZWFrLXdvcmQ7IH0KCiNtZW1jaGFydCB7CglwYWRkaW5nOiA1cH` +
+		`g7Cn0KI21lbWNoYXJ0c3ZnIHsKCXdpZHRoOiA0ODBweDsKCWhlaWdodDogMzAwcHg7Cn0K` +
+		`I21lbWNoYXJ0c3ZnIC5sYWJlbHMueC1sYWJlbHMgeyB0ZXh0LWFuY2hvcjogbWlkZGxlOy` +
+		`B9CiNtZW1jaGFydHN2ZyAubGFiZWxzLnktbGFiZWxzIHsgdGV4dC1hbmNob3I6IGVuZDsg` +
+		`fQojbWVtY2hhcnRzdmcgLmdyaWQgewoJc3Ryb2tlOiAjYmJiOwoJc3Ryb2tlLWRhc2hhcn` +
+		`JheTogMDsKCXN0cm9rZS13aWR0aDogMTsKfQojbWVtY2hhcnRzdmcgLmdjcGF1c2UgewoJ` +
+		`c3Ryb2tlOiBsaWdodGdyYXk7CglzdHJva2Utd2lkdGg6IDE7Cn0KPC9zdHlsZT4KPHNjcm` +
+		`lwdCBzcmM9ImNydXguanMiPjwvc2NyaXB0Pgo8L2hlYWQ+Cjxib2R5PgoKPGRpdiBpZD0i` +
+		`Y29scyI+Cgo8ZGl2IGlkPSJuYXYiPgoKPGRpdiBpZD0ibmF2aGVhZGVyIj4KPGEgY2xhc3` +
+		`M9Im5hdnRhYiI+c3RhdHM8L2E+IHwKPGEgY2xhc3M9Im5hdnRhYiI+Z29yb3V0aW5lczwv` +
+		`YT4KPC9kaXY+Cgo8ZGl2IGlkPSJuYXZzdGF0cyIgY2xhc3M9Im5hdnRhYnBhbmVsIj4KPG` +
+		`EgaWQ9InNob3dzdGF0cyI+c3RhdHM8L2E+PGJyPgo8Yj5sb2dzPC9iPgo8dWwgaWQ9Imxv` +
+		`Z3NsaXN0Ij4KPC91bD4KPC9kaXY+Cgo8ZGl2IGlkPSJuYXZnb3JvdXRpbmVzIiBjbGFzcz` +
+		`0ibmF2dGFicGFuZWwiPgo8dWw+CjxsaT4xOiBjcnV4LkxvYWQKPHVsPgoJPGxpPm1haW4u` +
+		`bWFpbjwvbGk+CjwvdWw+CjwvbGk+CjxsaT41NzQzNDogbWFpbi5mdW5jMQo8dWw+Cgk8bG` +
+		`k+bWFpbi5tYWluIChjcmVhdGVkIGJ5KTwvbGk+CjwvdWw+CjwvbGk+CjwvdWw+CjwvZGl2` +
+		`PgoKPGRpdiBpZD0ibmF2Zm9vdGVyIj4KY3J1eAo8L2Rpdj4KPC9kaXY+Cgo8ZGl2IGlkPS` +
+		`JtYWluIj4KCTxkaXYgaWQ9Im1haW5zdGF0cyI+PCEtLSBUT0RPIHBvcHVsYXRlIG9uIGlu` +
+		`aXRpYWwgbG9hZCAtLT48L2Rpdj4KCTxkaXYgaWQ9Im1haW5sb2dzIj48L2Rpdj4KPC9kaX` +
+		`Y+Cgo8L2Rpdj4KPC9ib2R5Pgo8L2h0bWw+Cg==` +
 		``,
 }
