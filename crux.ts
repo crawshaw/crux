@@ -15,6 +15,31 @@ function forEachTab(fn: TabFunc) {
 	}
 }
 
+interface PageFunc {
+	(name: string, page: HTMLDivElement);
+}
+
+function forEachPage(fn: PageFunc) {
+	var main = document.getElementById("main");
+	for(var i = 0; i < main.children.length; i++) {
+		var page = <HTMLDivElement>main.children[i];
+		fn(page.id, page);
+	}
+}
+
+function togglePage(pagename: string) {
+	forEachPage(function(name: string, page: HTMLDivElement) {
+		if (name == pagename) {
+			if (page.style.display != "block") {
+				page.style.display = "block";
+			}
+		} else {
+			page.style.display = "none";
+		}
+	});
+
+}
+
 function tabBody(name: string): HTMLDivElement {
 	return <HTMLDivElement>document.getElementById("nav" + name);
 }
@@ -36,16 +61,12 @@ function navgo(name: string) {
 }
 
 function handleLog(text: string) {
-	var main = document.getElementById("main");
-	var atBottom = main.scrollHeight - main.scrollTop == main.clientHeight;
-	main.innerHTML = "<pre id=\"log\">" + text + "</pre>";
-	if (atBottom) {
-		main.scrollTop = main.scrollHeight - main.clientHeight;
-	}
 }
 
 function loadLog(logname: string) {
 	console.log("loadLog", logname);
+	togglePage("mainlogs");
+
 	var xhr = new XMLHttpRequest();
 	// TODO: offset, limit
 	xhr.open("GET", "/debug/crux/logs/" + logname);
@@ -54,10 +75,19 @@ function loadLog(logname: string) {
 			console.log("bad data:", xhr);
 			return;
 		}
-		handleLog(xhr.responseText);
+		var main = document.getElementById("main");
+		var atBottom = main.scrollHeight - main.scrollTop == main.clientHeight;
+		var mainlogs = document.getElementById("mainlogs");
+		mainlogs.innerHTML = "<pre id=\"log\">" + xhr.responseText + "</pre>";
+		if (atBottom) {
+			main.scrollTop = main.scrollHeight - main.clientHeight;
+		}
 	}
 	xhr.onerror = (ev) => { xhrError("log", ev); };
 	xhr.send();
+
+	window.clearInterval(curRefreshID);
+	curRefreshID = window.setInterval(loadLog, 1000, logname);
 }
 
 var curRefreshID;
@@ -73,13 +103,13 @@ function handleLogNames(files: Array<string>) {
 		li.children[0].addEventListener('click', function(e: Event) {
 			var name = (<HTMLLIElement>e.target).innerHTML;
 			loadLog(name);
-			window.clearInterval(curRefreshID);
-			curRefreshID = window.setInterval(loadLog, 1000, name);
 		});
 	}
 }
 
 function loadStats() {
+	togglePage("mainstats");
+
 	var xhr = new XMLHttpRequest();
 	xhr.open("GET", "/debug/crux/stats");
 	xhr.onload = (ev) => {
@@ -87,8 +117,7 @@ function loadStats() {
 			console.log("bad data:", xhr);
 			return;
 		}
-		var main = document.getElementById("main");
-		main.innerHTML = xhr.responseText;
+		document.getElementById("mainstats").innerHTML = xhr.responseText;
 	}
 	xhr.onerror = (ev) => { xhrError("stats", ev); };
 	xhr.send();
