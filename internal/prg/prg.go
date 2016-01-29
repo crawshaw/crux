@@ -36,8 +36,8 @@ type Func struct {
 }
 
 var (
-	headerRE = regexp.MustCompile(`^goroutine (\d+) \[([a-zA-Z ]+)\]:\n$`)
-	funcRE   = regexp.MustCompile(`^(.*/)?([a-zA-Z0-9\.]+)\.([a-zA-Z0-9]+)(\(.*\))?\n$`)
+	headerRE = regexp.MustCompile(`^goroutine (\d+) \[(.+)\]:\n$`)
+	funcRE   = regexp.MustCompile(`^(.*/)?([_a-zA-Z0-9\.]+)\.([_()*.a-zA-Z0-9]+)(\(.*\))?\n$`)
 	posRE    = regexp.MustCompile(`\t(.*):(\d+) ?(\+0x.*)?\n$`)
 )
 

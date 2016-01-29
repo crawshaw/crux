@@ -8,21 +8,16 @@
 package crux
 
 import (
-	"bytes"
 	"encoding/base64"
-	"encoding/json"
-	"fmt"
 	"log"
 	"net/http"
-	"runtime"
 	"strings"
 	"time"
-
-	"crawshaw.io/crux/internal/prg"
 )
 
 func Init(mux *http.ServeMux) {
 	mux.HandleFunc("/debug/crux/stats", stats)
+	mux.HandleFunc("/debug/crux/goroutines", goroutines)
 	mux.HandleFunc("/debug/crux/logs/list", logsList)
 	mux.HandleFunc("/debug/crux/logs/", logsTail)
 
@@ -51,42 +46,4 @@ func decodeDataFiles() map[string]string {
 		res[name] = string(decoded)
 	}
 	return res
-}
-
-var stackBuf []byte
-
-/*
-goroutine 1 [running]:
-crawshaw.io/crux.Load()
-	/Users/crawshaw/src/crawshaw.io/crux/crux.go:11 +0x4c
-main.main()
-	/Users/crawshaw/src/crawshaw.io/crux/main.go:17 +0x53
-*/
-
-func Load() (string, error) {
-	if stackBuf == nil {
-		stackBuf = make([]byte, 1<<22)
-	}
-	n := runtime.Stack(stackBuf, true)
-	fmt.Printf("%s\n", stackBuf[:n])
-	s, err := prg.Load(stackBuf[:n])
-	if err != nil {
-		fmt.Printf("Load failed; %v\n", err)
-		return "", fmt.Errorf("crux: %v", err)
-	}
-	res, err := json.Marshal(s)
-	if err != nil {
-		return "", fmt.Errorf("crux: %v", err)
-	}
-
-	// debug
-	{
-		buf := new(bytes.Buffer)
-		if err := json.Indent(buf, res, "", "\t"); err != nil {
-			panic(err)
-		}
-		fmt.Printf("%s\n", buf.String())
-	}
-
-	return string(res), nil
 }

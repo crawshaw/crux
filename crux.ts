@@ -57,10 +57,9 @@ function navgo(name: string) {
 	});
 	if (name == "stats") {
 		loadLogNames();
+	} else if (name == "goroutines") {
+		loadGoroutines();
 	}
-}
-
-function handleLog(text: string) {
 }
 
 function loadLog(logname: string) {
@@ -143,6 +142,20 @@ function loadLogNames() {
 		handleLogNames(res.Files);
 	}
 	xhr.onerror = (ev) => { xhrError("logs list", ev); };
+	xhr.send();
+}
+
+function loadGoroutines() {
+	var xhr = new XMLHttpRequest();
+	xhr.open("GET", "/debug/crux/goroutines");
+	xhr.onload = (ev) => {
+		if (xhr.status < 200 || xhr.status >= 300) {
+			console.log("bad data:", xhr);
+			return;
+		}
+		document.getElementById("navgoroutines").innerHTML = xhr.responseText;
+	}
+	xhr.onerror = (ev) => { xhrError("goroutines", ev); };
 	xhr.send();
 }
 
