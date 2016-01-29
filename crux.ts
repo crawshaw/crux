@@ -62,18 +62,36 @@ function navgo(name: string) {
 	}
 }
 
+function xhrSend(path: string, fn: EventListener) {
+	if (xhr != null) {
+		xhr.abort();
+	}
+	var xhrThis = new XMLHttpRequest();
+	xhr = xhrThis;
+	xhr.open("GET", path);
+	xhr.onload = (ev) => {
+		if (xhrThis != xhr) {
+			return;
+		}
+		if (xhr.status < 200 || xhr.status >= 300) {
+			console.log("bad data from "+ path+ ":", xhr);
+			return;
+		}
+		fn(ev);
+		xhr = null;
+	}
+	xhr.onerror = (ev) => { xhrError(path, ev); };
+	xhr.send();
+
+	window.clearInterval(curRefreshID);
+}
+
 function loadLog(logname: string) {
 	console.log("loadLog", logname);
 	togglePage("mainlogs");
 
-	var xhr = new XMLHttpRequest();
 	// TODO: offset, limit
-	xhr.open("GET", "/debug/crux/logs/" + logname);
-	xhr.onload = (ev) => {
-		if (xhr.status < 200 || xhr.status >= 300) {
-			console.log("bad data:", xhr);
-			return;
-		}
+	xhrSend("/debug/crux/logs/" + logname, (ev) => {
 		var main = document.getElementById("main");
 		var atBottom = main.scrollHeight - main.scrollTop == main.clientHeight;
 		var mainlogs = document.getElementById("mainlogs");
@@ -81,15 +99,12 @@ function loadLog(logname: string) {
 		if (atBottom) {
 			main.scrollTop = main.scrollHeight - main.clientHeight;
 		}
-	}
-	xhr.onerror = (ev) => { xhrError("log", ev); };
-	xhr.send();
-
-	window.clearInterval(curRefreshID);
+	});
 	curRefreshID = window.setInterval(loadLog, 1000, logname);
 }
 
 var curRefreshID;
+var xhr : XMLHttpRequest = null;
 
 function handleLogNames(files: Array<string>) {
 	var logslist = <HTMLUListElement>document.getElementById("logslist");
@@ -109,19 +124,9 @@ function handleLogNames(files: Array<string>) {
 function loadStats() {
 	togglePage("mainstats");
 
-	var xhr = new XMLHttpRequest();
-	xhr.open("GET", "/debug/crux/stats");
-	xhr.onload = (ev) => {
-		if (xhr.status < 200 || xhr.status >= 300) {
-			console.log("bad data:", xhr);
-			return;
-		}
+	xhrSend("/debug/crux/stats", (ev) => {
 		document.getElementById("mainstats").innerHTML = xhr.responseText;
-	}
-	xhr.onerror = (ev) => { xhrError("stats", ev); };
-	xhr.send();
-
-	window.clearInterval(curRefreshID);
+	});
 	curRefreshID = window.setInterval(loadStats, 2000);
 }
 
@@ -130,33 +135,18 @@ function xhrError(name: string, ev: Event) {
 	console.log("loading "+name+" failed: ", ev);
 }
 
+// TODO: merge this into the stats handler.
 function loadLogNames() {
-	var xhr = new XMLHttpRequest();
-	xhr.open("GET", "/debug/crux/logs/list");
-	xhr.onload = (ev) => {
-		if (xhr.status < 200 || xhr.status >= 300) {
-			console.log("bad data:", xhr);
-			return;
-		}
+	xhrSend("/debug/crux/logs/list", (ev) => {
 		var res = JSON.parse(xhr.responseText);
 		handleLogNames(res.Files);
-	}
-	xhr.onerror = (ev) => { xhrError("logs list", ev); };
-	xhr.send();
+	});
 }
 
 function loadGoroutines() {
-	var xhr = new XMLHttpRequest();
-	xhr.open("GET", "/debug/crux/goroutines");
-	xhr.onload = (ev) => {
-		if (xhr.status < 200 || xhr.status >= 300) {
-			console.log("bad data:", xhr);
-			return;
-		}
+	xhrSend("/debug/crux/goroutines", (ev) => {
 		document.getElementById("navgoroutines").innerHTML = xhr.responseText;
-	}
-	xhr.onerror = (ev) => { xhrError("goroutines", ev); };
-	xhr.send();
+	});
 }
 
 window.onload = function() {
