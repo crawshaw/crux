@@ -36,6 +36,10 @@ var memchartTmpl = template.Must(template.New("memchart").Parse(`
 	<polyline fill="none" stroke="blue" strokwidth="1" points="{{range .RSS}}
 		{{.X}}, {{.Yscaled}}{{end}}
 	"/>
+	<polyline fill="none" stroke="red" strokwidth="1" points="{{range .HeapInuse}}
+		{{.X}}, {{.Yscaled}}{{end}}
+	"/>
+
 
 </svg>
 </div>
@@ -50,8 +54,9 @@ const (
 )
 
 type memChart struct {
-	MemTimes []time.Time
-	RSS      []point
+	MemTimes  []time.Time
+	RSS       []point
+	HeapInuse []point
 
 	numGC  int
 	Pauses []pause
@@ -107,10 +112,12 @@ func updateMemChart(s *runtime.MemStats) {
 	}
 	c.MemTimes = c.MemTimes[dropI:]
 	c.RSS = c.RSS[dropI:]
+	c.HeapInuse = c.HeapInuse[dropI:]
 
 	// Add new memtimes data.
 	c.MemTimes = append(c.MemTimes, now)
 	c.RSS = append(c.RSS, point{Y: s.Sys - s.HeapReleased})
+	c.HeapInuse = append(c.HeapInuse, point{Y: s.HeapInuse})
 
 	// Add new GCs.
 	numNewGCs := int(s.NumGC) - c.numGC
@@ -158,6 +165,7 @@ func updateMemChart(s *runtime.MemStats) {
 	ydiv := ymax / (chartHeight - chartPad)
 	for i := range c.MemTimes {
 		c.RSS[i].Yscaled = (chartHeight - chartPad) - c.RSS[i].Y/ydiv
+		c.HeapInuse[i].Yscaled = (chartHeight - chartPad) - c.HeapInuse[i].Y/ydiv
 	}
 	var memdiv float64
 	switch {
@@ -198,6 +206,7 @@ func updateMemChart(s *runtime.MemStats) {
 		pxOff := uint64(now.Sub(c.MemTimes[i]) / chartTimePerPx)
 		x := chartWidth - pxOff - chartPad
 		c.RSS[i].X = x
+		c.HeapInuse[i].X = x
 	}
 	for i := len(c.Pauses) - 1; i >= 0; i-- {
 		pxOff := uint64(now.Sub(c.Pauses[i].Time) / chartTimePerPx)
