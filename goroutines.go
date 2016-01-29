@@ -48,12 +48,12 @@ func goroutines(w http.ResponseWriter, r *http.Request) {
 }
 
 var goroutinesTmpl = template.Must(template.New("goroutines").Parse(`
-<ul>
+<ul id="goroutines">
 {{range .Goroutines}}
 <li>{{.Num}}:
 	{{range $i, $element := .Func}}
 		{{if eq $i 0}}
-		{{.Name}}<ul>
+		{{.Name}}<ul class="stack">
 		{{else}}
 		<li>{{.Name}}</li>
 		{{end}}

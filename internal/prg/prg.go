@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"io"
 	"regexp"
+	"sort"
 	"strconv"
 	"strings"
 	"time"
@@ -145,5 +146,13 @@ func Load(src []byte) (State, error) {
 		}
 	}
 
+	sort.Sort(byNum(state.Goroutines))
+
 	return state, nil
 }
+
+type byNum []Stack
+
+func (a byNum) Len() int           { return len(a) }
+func (a byNum) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
+func (a byNum) Less(i, j int) bool { return a[i].Num < a[j].Num }
