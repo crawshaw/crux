@@ -16,6 +16,7 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"os/exec"
 	"path/filepath"
 )
 
@@ -23,6 +24,12 @@ var outfile = flag.String("o", "", "result will be written file")
 
 func main() {
 	flag.Parse()
+
+	cmd := exec.Command("tsc", "--outFile", "crux.js", "crux.ts")
+	if err := cmd.Run(); err != nil {
+		log.Fatalf("tsc: %v", err)
+	}
+	defer os.Remove("crux.js")
 
 	files := []string{
 		"crux.js",
