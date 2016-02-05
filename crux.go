@@ -4,7 +4,7 @@
 
 //go:generate go run gendatafiles.go -o datafiles.go
 
-package crux
+package crux // import "crawshaw.io/crux"
 
 import (
 	"encoding/base64"
